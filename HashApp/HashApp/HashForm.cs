@@ -35,7 +35,7 @@ namespace HashApp
             {
                 textBoxSzoveg.ForeColor = SystemColors.WindowText;
             }
-            if (Fajl == true)
+            if (Fajl)
             {
                 Fajl = false;
                 label1.Text = "Szöveg";
@@ -46,78 +46,46 @@ namespace HashApp
 
         private void szamol()
         {
-            if (textBoxSzoveg.Text == "")
+            if (string.IsNullOrEmpty(textBoxSzoveg.Text))
             {
-                textBoxMD5.Text = "";
-                textBoxSHA1.Text = "";
+                textBoxMD5.Text = string.Empty;
+                textBoxSHA1.Text = string.Empty;
             }
             else
             {
-                if (checkBoxKisbetu.Checked)
-                {
-                    textBoxMD5.Text = GetStringMD5(textBoxSzoveg.Text.ToString()).ToLower();
-                    textBoxSHA1.Text = GetStringSHA1(textBoxSzoveg.Text.ToString()).ToLower();
-                }
-                else
-                {
-                    textBoxMD5.Text = GetStringMD5(textBoxSzoveg.Text.ToString());
-                    textBoxSHA1.Text = GetStringSHA1(textBoxSzoveg.Text.ToString());
-                }
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Fajl)
-            {
-                if (checkBoxKisbetu.Checked)
-                {
-                    textBoxMD5.Text = textBoxMD5.Text.ToLower();
-                    textBoxSHA1.Text = textBoxSHA1.Text.ToLower();
-                }
-                else
-                {
-                    textBoxMD5.Text = textBoxMD5.Text.ToUpper();
-                    textBoxSHA1.Text = textBoxSHA1.Text.ToUpper();
-                }
-                
-            }
-            else
-            {
-                szamol();
+                textBoxMD5.Text = GetStringMD5(textBoxSzoveg.Text.ToString());
+                textBoxSHA1.Text = GetStringSHA1(textBoxSzoveg.Text.ToString());
             }
         }
 
         private void checkBoxKisbetu_CheckedChanged(object sender, EventArgs e)
         {
-            if (Fajl)
+            if (checkBoxKisbetu.Checked)
             {
-                if (checkBoxKisbetu.Checked)
-                {
-                    textBoxMD5.Text = textBoxMD5.Text.ToLower();
-                    textBoxSHA1.Text = textBoxSHA1.Text.ToLower();
-                }
-                else
-                {
-                    textBoxMD5.Text = textBoxMD5.Text.ToUpper();
-                    textBoxSHA1.Text = textBoxSHA1.Text.ToUpper();
-                }
-
+                textBoxMD5.CharacterCasing = CharacterCasing.Lower;
+                textBoxSHA1.CharacterCasing = CharacterCasing.Lower;
             }
             else
             {
-                szamol();
+                textBoxMD5.CharacterCasing = CharacterCasing.Upper;
+                textBoxSHA1.CharacterCasing = CharacterCasing.Upper;
             }
         }
 
         private void md5Masol_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxMD5.Text);
+            if (!string.IsNullOrEmpty(textBoxMD5.Text))
+            {
+                Clipboard.SetText(textBoxMD5.Text);
+            }
         }
 
         private void sha1Masol_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxSHA1.Text);
+            if (!string.IsNullOrEmpty(textBoxSHA1.Text))
+            {
+                Clipboard.SetText(textBoxSHA1.Text);
+            }
         }
 
         private void buttonMegnyit_Click(object sender, EventArgs e)
@@ -128,19 +96,22 @@ namespace HashApp
 
         private void buttonMent_Click(object sender, EventArgs e)
         {
-            if (textBoxSzoveg.Text != "")
+            if (!string.IsNullOrEmpty(textBoxSzoveg.Text))
             {
                 if (Fajl)
                 {
                     saveFileDialog.FileName = Path.GetFileNameWithoutExtension(openFileDialog.FileName) + ".txt";
                 }
-                else if (!textBoxSzoveg.Text.Contains(@":\"))
-                {
-                    saveFileDialog.FileName = textBoxSzoveg.Text;
-                }
                 else
                 {
-                    saveFileDialog.FileName = "hash.txt";
+                    if (!textBoxSzoveg.Text.Contains(@":\"))
+                    {
+                        saveFileDialog.FileName = textBoxSzoveg.Text;
+                    }
+                    else
+                    {
+                        saveFileDialog.FileName = "hash.txt";
+                    }
                 }
                 saveFileDialog.ShowDialog();
             }
@@ -173,53 +144,45 @@ namespace HashApp
             label1.ForeColor = Color.Blue;
             textBoxSzoveg.Text = openFileDialog.FileName;
             textBoxSzoveg.ForeColor = Color.Blue;
-            if (checkBoxKisbetu.Checked)
-            {
-                textBoxMD5.Text = GetFileMD5(openFileDialog.FileName).ToLower();
-                textBoxSHA1.Text = GetFileSHA1(openFileDialog.FileName).ToLower();
-            }
-            else
-            {
-                textBoxMD5.Text = GetFileMD5(openFileDialog.FileName);
-                textBoxSHA1.Text = GetFileSHA1(openFileDialog.FileName);
-            }
+            textBoxMD5.Text = GetFileMD5(openFileDialog.FileName);
+            textBoxSHA1.Text = GetFileSHA1(openFileDialog.FileName);
         }
 
-        public static string GetFileMD5(string path)
+        private static string GetFileMD5(string path)
         {
             using (MD5 md5 = MD5.Create())
             {
                 using (Stream stream = File.OpenRead(path))
                 {
-                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "");
+                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
                 }
             }
         }
 
-        public static string GetFileSHA1(string path)
+        private static string GetFileSHA1(string path)
         {
             using (SHA1Managed sha1 = new SHA1Managed())
             {
                 using (Stream stream = File.OpenRead(path))
                 {
-                    return BitConverter.ToString(sha1.ComputeHash(stream)).Replace("-", "");
+                    return BitConverter.ToString(sha1.ComputeHash(stream)).Replace("-", string.Empty);
                 }
             }
         }
 
-        public static string GetStringMD5(string input)
+        private static string GetStringMD5(string input)
         {
             using (MD5 md5 = MD5.Create())
             {
-                return BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "");
+                return BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", string.Empty);
             }
         }
 
-        public static string GetStringSHA1(string input)
+        private static string GetStringSHA1(string input)
         {
             using (SHA1Managed sha1 = new SHA1Managed())
             {
-                return BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "");
+                return BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", string.Empty);
             }
         }
     }

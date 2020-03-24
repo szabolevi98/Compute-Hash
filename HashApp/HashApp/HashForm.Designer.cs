@@ -55,6 +55,7 @@
             // 
             // textBoxMD5
             // 
+            this.textBoxMD5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxMD5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxMD5.Location = new System.Drawing.Point(52, 38);
             this.textBoxMD5.Name = "textBoxMD5";
