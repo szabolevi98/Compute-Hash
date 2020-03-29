@@ -54,13 +54,15 @@ namespace HashApp
             {
                 MessageBox.Show("A megadott fájl parancsikon!\nAz eredeti fájlt érdemes ellenőrizni.", file, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            Fajl = true;
             label1.Text = "Fájl";
             label1.ForeColor = Color.Blue;
+            textBoxSzoveg.TextChanged -= textBoxSzoveg_TextChanged;
             textBoxSzoveg.Text = file;
+            textBoxSzoveg.TextChanged += textBoxSzoveg_TextChanged;
             textBoxSzoveg.ForeColor = Color.Blue;
             textBoxMD5.Text = GetFileMD5(file);
             textBoxSHA1.Text = GetFileSHA1(file);
+            Fajl = true;
         }
 
         private void Szamol()
