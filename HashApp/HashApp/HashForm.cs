@@ -17,9 +17,13 @@ namespace HashApp
     public partial class HashForm : Form
     {
         private bool Fajl { get; set; }
-        public HashForm()
+        public HashForm(string[] args)
         {
             InitializeComponent();
+            if (args.Length == 1 && args[0] != null)
+            {
+                FajlSzamol(args[0]);
+            }
         }
 
         private void HashForm_Load(object sender, EventArgs e)
@@ -41,10 +45,25 @@ namespace HashApp
                 label1.Text = "Szöveg";
                 label1.ForeColor = SystemColors.ControlText;
             }
-            szamol();
+            Szamol();
         }
 
-        private void szamol()
+        private void FajlSzamol(string file)
+        {
+            if (file.Substring(file.Length - 4) == ".lnk" || file.Substring(file.Length - 4) == ".url")
+            {
+                MessageBox.Show("A megadott fájl parancsikon!\nAz eredeti fájlt érdemes ellenőrizni.", file, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            Fajl = true;
+            label1.Text = "Fájl";
+            label1.ForeColor = Color.Blue;
+            textBoxSzoveg.Text = file;
+            textBoxSzoveg.ForeColor = Color.Blue;
+            textBoxMD5.Text = GetFileMD5(file);
+            textBoxSHA1.Text = GetFileSHA1(file);
+        }
+
+        private void Szamol()
         {
             if (string.IsNullOrEmpty(textBoxSzoveg.Text))
             {
@@ -91,7 +110,6 @@ namespace HashApp
         private void buttonMegnyit_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
-            Fajl = true;
         }
 
         private void buttonMent_Click(object sender, EventArgs e)
@@ -140,12 +158,7 @@ namespace HashApp
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            label1.Text = "Fájl";
-            label1.ForeColor = Color.Blue;
-            textBoxSzoveg.Text = openFileDialog.FileName;
-            textBoxSzoveg.ForeColor = Color.Blue;
-            textBoxMD5.Text = GetFileMD5(openFileDialog.FileName);
-            textBoxSHA1.Text = GetFileSHA1(openFileDialog.FileName);
+            FajlSzamol(openFileDialog.FileName);
         }
 
         private static string GetFileMD5(string path)
