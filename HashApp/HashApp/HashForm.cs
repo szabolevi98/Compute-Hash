@@ -16,7 +16,7 @@ namespace HashApp
 {
     public partial class HashForm : Form
     {
-        private bool Fajl { get; set; }
+        private bool Fajl { get; set; } = false;
         public HashForm(string[] args)
         {
             InitializeComponent();
@@ -30,20 +30,16 @@ namespace HashApp
         {
             Text += " v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelCopyright.Text = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).LegalCopyright;
-            Fajl = false;
         }
 
         private void textBoxSzoveg_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxSzoveg.ForeColor == Color.Blue)
-            {
-                textBoxSzoveg.ForeColor = SystemColors.WindowText;
-            }
             if (Fajl)
             {
-                Fajl = false;
-                label1.Text = "Szöveg";
+                textBoxSzoveg.ForeColor = SystemColors.WindowText;
                 label1.ForeColor = SystemColors.ControlText;
+                label1.Text = "Szöveg";
+                Fajl = false;
             }
             Szamol();
         }
@@ -55,11 +51,11 @@ namespace HashApp
                 MessageBox.Show("A megadott fájl parancsikon!\nAz eredeti fájlt érdemes ellenőrizni.", file, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             label1.Text = "Fájl";
-            label1.ForeColor = Color.Blue;
+            label1.ForeColor = Color.RoyalBlue;
             textBoxSzoveg.TextChanged -= textBoxSzoveg_TextChanged;
             textBoxSzoveg.Text = file;
             textBoxSzoveg.TextChanged += textBoxSzoveg_TextChanged;
-            textBoxSzoveg.ForeColor = Color.Blue;
+            textBoxSzoveg.ForeColor = Color.RoyalBlue;
             textBoxMD5.Text = GetFileMD5(file);
             textBoxSHA1.Text = GetFileSHA1(file);
             Fajl = true;
