@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HashForm));
             this.textBoxSzoveg = new System.Windows.Forms.TextBox();
             this.textBoxMD5 = new System.Windows.Forms.TextBox();
             this.textBoxSHA1 = new System.Windows.Forms.TextBox();
@@ -190,6 +191,7 @@
             this.Controls.Add(this.textBoxMD5);
             this.Controls.Add(this.textBoxSzoveg);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HashForm";
