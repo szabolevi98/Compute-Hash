@@ -52,7 +52,7 @@
             this.textBoxSzoveg.Name = "textBoxSzoveg";
             this.textBoxSzoveg.Size = new System.Drawing.Size(247, 20);
             this.textBoxSzoveg.TabIndex = 0;
-            this.textBoxSzoveg.TextChanged += new System.EventHandler(this.textBoxSzoveg_TextChanged);
+            this.textBoxSzoveg.TextChanged += new System.EventHandler(this.TextBoxSzoveg_TextChanged);
             // 
             // textBoxMD5
             // 
@@ -112,7 +112,7 @@
             this.checkBoxKisbetu.TabIndex = 7;
             this.checkBoxKisbetu.Text = "Kisbetű";
             this.checkBoxKisbetu.UseVisualStyleBackColor = true;
-            this.checkBoxKisbetu.CheckedChanged += new System.EventHandler(this.checkBoxKisbetu_CheckedChanged);
+            this.checkBoxKisbetu.CheckedChanged += new System.EventHandler(this.CheckBoxKisbetu_CheckedChanged);
             // 
             // md5Masol
             // 
@@ -122,7 +122,7 @@
             this.md5Masol.TabIndex = 8;
             this.md5Masol.Text = "Másol";
             this.md5Masol.UseVisualStyleBackColor = true;
-            this.md5Masol.Click += new System.EventHandler(this.md5Masol_Click);
+            this.md5Masol.Click += new System.EventHandler(this.Md5Masol_Click);
             // 
             // sha1Masol
             // 
@@ -132,11 +132,11 @@
             this.sha1Masol.TabIndex = 9;
             this.sha1Masol.Text = "Másol";
             this.sha1Masol.UseVisualStyleBackColor = true;
-            this.sha1Masol.Click += new System.EventHandler(this.sha1Masol_Click);
+            this.sha1Masol.Click += new System.EventHandler(this.Sha1Masol_Click);
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog_FileOk);
             // 
             // buttonMegnyit
             // 
@@ -146,7 +146,7 @@
             this.buttonMegnyit.TabIndex = 10;
             this.buttonMegnyit.Text = "Fájl megnyitása";
             this.buttonMegnyit.UseVisualStyleBackColor = true;
-            this.buttonMegnyit.Click += new System.EventHandler(this.buttonMegnyit_Click);
+            this.buttonMegnyit.Click += new System.EventHandler(this.ButtonMegnyit_Click);
             // 
             // buttonMent
             // 
@@ -156,7 +156,7 @@
             this.buttonMent.TabIndex = 11;
             this.buttonMent.Text = "Mentés txt-be";
             this.buttonMent.UseVisualStyleBackColor = true;
-            this.buttonMent.Click += new System.EventHandler(this.buttonMent_Click);
+            this.buttonMent.Click += new System.EventHandler(this.ButtonMent_Click);
             // 
             // labelCopyright
             // 
@@ -171,7 +171,7 @@
             // 
             this.saveFileDialog.FileName = "hash.txt";
             this.saveFileDialog.Filter = "Szöveges fájl .txt|*.txt";
-            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
             // 
             // HashForm
             // 

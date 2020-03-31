@@ -16,7 +16,8 @@ namespace HashApp
 {
     public partial class HashForm : Form
     {
-        private bool Fajl { get; set; } = false;
+        public bool fajl = false;
+
         public HashForm(string[] args)
         {
             InitializeComponent();
@@ -32,14 +33,14 @@ namespace HashApp
             labelCopyright.Text = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).LegalCopyright;
         }
 
-        private void textBoxSzoveg_TextChanged(object sender, EventArgs e)
+        private void TextBoxSzoveg_TextChanged(object sender, EventArgs e)
         {
-            if (Fajl)
+            if (fajl)
             {
                 textBoxSzoveg.ForeColor = SystemColors.WindowText;
                 label1.ForeColor = SystemColors.ControlText;
                 label1.Text = "Szöveg";
-                Fajl = false;
+                fajl = false;
             }
             Szamol();
         }
@@ -52,13 +53,13 @@ namespace HashApp
             }
             label1.Text = "Fájl";
             label1.ForeColor = Color.RoyalBlue;
-            textBoxSzoveg.TextChanged -= textBoxSzoveg_TextChanged;
+            textBoxSzoveg.TextChanged -= TextBoxSzoveg_TextChanged;
             textBoxSzoveg.Text = file;
-            textBoxSzoveg.TextChanged += textBoxSzoveg_TextChanged;
+            textBoxSzoveg.TextChanged += TextBoxSzoveg_TextChanged;
             textBoxSzoveg.ForeColor = Color.RoyalBlue;
             textBoxMD5.Text = GetFileMD5(file);
             textBoxSHA1.Text = GetFileSHA1(file);
-            Fajl = true;
+            fajl = true;
         }
 
         private void Szamol()
@@ -75,7 +76,7 @@ namespace HashApp
             }
         }
 
-        private void checkBoxKisbetu_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxKisbetu_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxKisbetu.Checked)
             {
@@ -89,7 +90,7 @@ namespace HashApp
             }
         }
 
-        private void md5Masol_Click(object sender, EventArgs e)
+        private void Md5Masol_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxMD5.Text))
             {
@@ -97,7 +98,7 @@ namespace HashApp
             }
         }
 
-        private void sha1Masol_Click(object sender, EventArgs e)
+        private void Sha1Masol_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxSHA1.Text))
             {
@@ -105,16 +106,16 @@ namespace HashApp
             }
         }
 
-        private void buttonMegnyit_Click(object sender, EventArgs e)
+        private void ButtonMegnyit_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
         }
 
-        private void buttonMent_Click(object sender, EventArgs e)
+        private void ButtonMent_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxSzoveg.Text))
             {
-                if (Fajl)
+                if (fajl)
                 {
                     saveFileDialog.FileName = Path.GetFileNameWithoutExtension(openFileDialog.FileName) + ".txt";
                 }
@@ -137,11 +138,11 @@ namespace HashApp
             }
         }
 
-        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
+        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
             {
-                if (Fajl)
+                if (fajl)
                 {
                     writer.WriteLine($"Fájl: {textBoxSzoveg.Text}");
                 }
@@ -154,7 +155,7 @@ namespace HashApp
             }
         }
 
-        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
+        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             FajlSzamol(openFileDialog.FileName);
         }
