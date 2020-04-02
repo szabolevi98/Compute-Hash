@@ -16,14 +16,22 @@ namespace HashApp
 {
     public partial class HashForm : Form
     {
-        public bool fajl = false;
+        public bool fajl;
 
         public HashForm(string[] args)
         {
             InitializeComponent();
-            if (args.Length == 1 && args[0] != null)
+
+            if (args.Length > 0)
             {
-                FajlSzamol(args[0]);
+                if (args.Length == 1 && args[0] != null)
+                {
+                    FajlSzamol(args[0]);
+                }
+                else
+                {
+                    MessageBox.Show("Argumentum hiba!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
 
