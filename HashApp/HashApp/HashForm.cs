@@ -16,7 +16,7 @@ namespace HashApp
 {
     public partial class HashForm : Form
     {
-        public bool fajl;
+        public bool Fajl { get; set; }
 
         public HashForm(string[] args)
         {
@@ -43,12 +43,12 @@ namespace HashApp
 
         private void TextBoxSzoveg_TextChanged(object sender, EventArgs e)
         {
-            if (fajl)
+            if (Fajl)
             {
                 textBoxSzoveg.ForeColor = SystemColors.WindowText;
                 label1.ForeColor = SystemColors.ControlText;
                 label1.Text = "Szöveg";
-                fajl = false;
+                Fajl = false;
             }
             Szamol();
         }
@@ -67,7 +67,7 @@ namespace HashApp
             textBoxSzoveg.ForeColor = Color.RoyalBlue;
             textBoxMD5.Text = GetFileMD5(file);
             textBoxSHA1.Text = GetFileSHA1(file);
-            fajl = true;
+            Fajl = true;
         }
 
         private void Szamol()
@@ -123,7 +123,7 @@ namespace HashApp
         {
             if (!string.IsNullOrEmpty(textBoxSzoveg.Text))
             {
-                if (fajl)
+                if (Fajl)
                 {
                     saveFileDialog.FileName = Path.GetFileNameWithoutExtension(openFileDialog.FileName) + ".txt";
                 }
@@ -150,7 +150,7 @@ namespace HashApp
         {
             using (StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile()))
             {
-                if (fajl)
+                if (Fajl)
                 {
                     writer.WriteLine($"Fájl: {textBoxSzoveg.Text}");
                 }
