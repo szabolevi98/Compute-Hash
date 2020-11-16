@@ -1,2 +1,2 @@
 # HashApp
-![Screenshot](HashApp/HashApp.png?raw=true "HashApp")
+![Screenshot](HashApp.png?raw=true "HashApp")
